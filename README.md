@@ -1,6 +1,6 @@
 # chatgpt-retrieval
 
-Simple script to use ChatGPT on your own files.
+Simple script to use ChatGPT on your own files and create article.
 
 ## Installation
 
@@ -21,6 +21,6 @@ Your dog's name is Sunny.
 
 Test reading `data/cat.pdf` file.
 ```
-> python chatgpt.py "what is my cat's name"
+> python chatgpt.py "Design thinking dan analysis"
 Your cat's name is Muffy.
 ```

@@ -10,6 +10,7 @@ from langchain.indexes import VectorstoreIndexCreator
 from langchain.indexes.vectorstore import VectorStoreIndexWrapper
 from langchain.llms import OpenAI
 from langchain.vectorstores import Chroma
+from langchain import PromptTemplate
 
 import constants
 
@@ -43,10 +44,24 @@ chat_history = []
 while True:
   if not query:
     query = input("Prompt: ")
+  else:
+    template = """\
+    Tolong buatkan article dengan response json dari judul "{title}" yang berisi 2 object berikut:
+    1. ringkasan, yang berisi mengenai ringkasannya dengan 200 karakter
+    2. konten, yang berisi detail artikelnya dengan 3000 paragraf
+
+    Tolong dijawab dengan json saja, tidak perlu bicara apapun selain json!
+    """
+    prompt = PromptTemplate.from_template(template)
+    query = prompt.format(title=query)
+
   if query in ['quit', 'q', 'exit']:
     sys.exit()
+
+  print(query)
   result = chain({"question": query, "chat_history": chat_history})
   print(result['answer'])
 
   chat_history.append((query, result['answer']))
+  sys.exit()
   query = None
